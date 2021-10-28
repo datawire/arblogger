@@ -1,0 +1,105 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: arblogger1
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: arblogger1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arblogger1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: arblogger1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: arblogger1
+    spec:
+      containers:
+      - name: backend
+        image: ko://github.com/datawire/arblogger
+        ports:
+        - name: http
+          containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: arblogger2
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: arblogger2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arblogger2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: arblogger2
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: arblogger2
+    spec:
+      containers:
+      - name: backend
+        image: ko://github.com/datawire/arblogger
+        ports:
+        - name: http
+          containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: arblogger3
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: arblogger3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arblogger3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: arblogger3
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: arblogger3
+    spec:
+      containers:
+      - name: backend
+        image: ko://github.com/datawire/arblogger
+        ports:
+        - name: http
+          containerPort: 8080
